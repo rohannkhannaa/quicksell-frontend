@@ -7,6 +7,19 @@ import doneImage from "./completed.svg";
 import pendingImage from "./pending.svg";
 import addImage from "./plus.svg";
 import moreImage from "./dots.svg";
+// Status Icons
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import TimelapseIcon from '@mui/icons-material/Timelapse';
+
+
+
+// Priority Icons
+import ReportProblemIcon from '@mui/icons-material/ReportProblem';
+import SignalCellularAlt1BarIcon from '@mui/icons-material/SignalCellularAlt1Bar';
+import SignalCellularAlt2BarIcon from '@mui/icons-material/SignalCellularAlt2Bar';
+import SignalCellularAltIcon from '@mui/icons-material/SignalCellularAlt';
+import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
+
 const getUserNameAndAvailability = (user_id, users) => {
   console.log(typeof users);
 
@@ -63,25 +76,39 @@ const KanbanColumn = ({ groupKey, tickets, groupBy, users}) => (
             <>
               {groupKey === "Backlog" ? (
                 <>
-                  <img
-                    src={pendingImage}
-                    alt="Profile"
-                    style={{
-                      opacity: "0.5",
-                      width: "30px",
-                      height: "30px",
-                      borderRadius: "50%",
-                      marginLeft: "10px",
-                    }}
-                  />
-                </>
+                  <MoreHorizIcon style={{color : 'grey', border : '0.5px solid grey', borderRadius:'50%'}}/></>
               ) : (
                 <>
+                  {groupKey == "In progress" ? (<>
+                    <TimelapseIcon style={{color : '#8B8000'}}/>
+                  </>) : (<>
+                  </>)}
                 </>
               )}
             </>
           ) : (
-            <></>
+            <>
+            {groupKey === 4 ? (
+                  <><ReportProblemIcon style={{color : '#ff6666',  marginBottom : '0.4rem'}}/></>
+                  ) : (
+                    <>
+                      {groupKey === 3 ? (
+                        <><SignalCellularAltIcon style={{color : 'grey', marginBottom : '0.4rem'}}/></>
+                      ) : (
+                        <>
+                          {groupKey === 2 ? (
+                            <><SignalCellularAlt2BarIcon style={{color : 'grey', marginBottom : '0.4rem'}}/></>
+                          ) : (
+                            <>{groupKey === 1 ?
+                               <><SignalCellularAlt1BarIcon style={{color : 'grey', marginBottom : '0.4rem'}}/></> 
+                            
+                            : <><MoreHorizIcon/></>}</>
+                          )}
+                        </>
+                      )}
+                    </>
+                  )}
+            </>
           )}
         </>
       )}
@@ -202,10 +229,28 @@ const KanbanColumn = ({ groupKey, tickets, groupBy, users}) => (
               )}
             </p>
             <p style={{ textAlign: "left", fontSize: "0.8rem" }}>
-              <img
-                style={{ height: "1rem", marginRight: "0.5rem" }}
-                src={signalImage}
-              ></img>
+              {/* Priority based Image */}
+              {ticket.priority === 4 ? (
+                  <><ReportProblemIcon style={{color : '#ff6666',  marginBottom : '0.4rem'}}/></>
+                  ) : (
+                    <>
+                      {ticket.priority === 3 ? (
+                        <><SignalCellularAltIcon style={{color : 'grey', marginBottom : '0.4rem'}}/></>
+                      ) : (
+                        <>
+                          {ticket.priority === 2 ? (
+                            <><SignalCellularAlt2BarIcon style={{color : 'grey', marginBottom : '0.4rem'}}/></>
+                          ) : (
+                            <>{ticket.priority === 1 ?
+                               <><SignalCellularAlt1BarIcon style={{color : 'grey', marginBottom : '0.4rem'}}/></> 
+                            
+                            : <><MoreHorizIcon/></>}</>
+                          )}
+                        </>
+                      )}
+                    </>
+                  )}
+                  <span style={{marginLeft : '0.4rem'}}></span>
               {ticket.tag}
             </p>
           </Card.Text>
